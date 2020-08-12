@@ -26,6 +26,39 @@ def climb_stairs_1(n: int) -> int:
     return climb_stairs(n - 1) + climb_stairs(n - 2)
 
 
+def climb_stairs_2(n: int) -> int:
+    """
+    在递归的基础之上，使用记忆化搜索
+    """
+    memo = [-1 for _ in range(n + 1)]
+    calculate(n, memo)
+
+    return memo[n]
+
+
+def calculate(n: int, memo: list) -> int:
+    if n < 2:
+        return 1
+    if memo[n] == -1:
+        memo[n] = calculate(n - 1, memo) + calculate(n - 2, memo)
+    return memo[n]
+
+
+def climb_stairs_3(n: int) -> int:
+    """
+    动态规划，记录所有中间结果
+    """
+    if n < 2:
+        return 1
+    memo = [-1 for _ in range(n + 1)]
+    memo[0], memo[1] = 1, 1
+    for i in range(2, n + 1):
+        memo[i] = memo[i - 1] + memo[i - 2]
+    return memo[n]
+
+
 if __name__ == '__main__':
     print(climb_stairs(4))
     print(climb_stairs_1(4))
+    print(climb_stairs_2(4))
+    print(climb_stairs_3(4))
