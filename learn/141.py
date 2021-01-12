@@ -30,13 +30,10 @@ class Solution:
         时间复杂度：O(n)
         空间复杂度：O(1)
         """
-        fast, slow = head, head
-        while fast:
+        fast = slow = head
+        while fast and fast.next:
             slow = slow.next
-            if not fast.next:
-                return False
             fast = fast.next.next
-
             if fast == slow:
                 return True
 
